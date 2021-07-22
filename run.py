@@ -1,9 +1,8 @@
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QDialog, QApplication, QMessageBox
+from PyQt5.QtWidgets import QDialog, QApplication
 from PyQt5.uic import loadUi
 
 import sys
-import time
 
 from src.a_star import AStar
 from src.puzzle import Puzzle
@@ -53,7 +52,8 @@ class MainWindow(QDialog):
             self.box_13 : 9, self.box_14 : 13, self.box_15 : 14, self.box_16 : 15
             }
 
-        self.labels = [self.info_1, self.info_2, self.info_3]
+        self.warning_labels = [self.info_1, self.info_2, self.info_3]
+
         self.start_button.setVisible(False)
         self.prev_button.setVisible(False)
         self.next_button.setVisible(False)
@@ -76,7 +76,7 @@ class MainWindow(QDialog):
         self.solvable.setStyleSheet(DEFAULT_TEXT_COLOR)
         self.not_solvable.setStyleSheet(DEFAULT_TEXT_COLOR)
         
-        for label in self.labels:
+        for label in self.warning_labels:
             label.setStyleSheet(DEFAULT_TEXT_COLOR)
 
     def set_default_counter(self):
@@ -111,18 +111,18 @@ class MainWindow(QDialog):
         try:
             self.inputan = list(map(int, self.inputan))
         except:
-            self.labels[0].setStyleSheet(WARNING_TEXT_COLOR)
+            self.warning_labels[0].setStyleSheet(WARNING_TEXT_COLOR)
             valid = False
 
         else:
             if len(self.inputan) != 16:
-                self.labels[0].setStyleSheet(WARNING_TEXT_COLOR)
+                self.warning_labels[0].setStyleSheet(WARNING_TEXT_COLOR)
                 valid = False
             if not all(0<=x<=15 for x in self.inputan):
-                self.labels[1].setStyleSheet(WARNING_TEXT_COLOR)
+                self.warning_labels[1].setStyleSheet(WARNING_TEXT_COLOR)
                 valid = False
             if any(self.inputan.count(x) > 1 for x in self.inputan):
-                self.labels[2].setStyleSheet(WARNING_TEXT_COLOR)
+                self.warning_labels[2].setStyleSheet(WARNING_TEXT_COLOR)
                 valid = False
 
         finally:
@@ -144,12 +144,14 @@ class MainWindow(QDialog):
         if solvable:
             self.solvable.setStyleSheet(GREEN_TEXT_COLOR)
             self.next_button.setVisible(True)
-            
+
             a_star.do_algorithm()
             
             self.n_expanded_nodes.setText(str(a_star.n_nodes_expanded))
             self.result = a_star.get_solution()
-            print(self.result[0])
+            
+            print("\nPosisi awal")
+            print(f"{self.result[0]}\n")
 
         else:
             self.not_solvable.setStyleSheet(WARNING_TEXT_COLOR)
@@ -169,6 +171,10 @@ class MainWindow(QDialog):
         self.set_boxes_value(self.puzzle_to_inputan(self.result[self.step]))
         self.set_counter()
 
+        posisi = "Posisi awal" if self.step == 0 else f"Step {self.step}"
+        print(f"\nPrev - {posisi}")
+        print(f"{self.result[self.step]}\n")
+
         if self.step == 0:
             self.prev_button.setVisible(False)
 
@@ -176,6 +182,10 @@ class MainWindow(QDialog):
         self.prev_button.setVisible(True)
         self.step += 1
         self.set_boxes_value(self.puzzle_to_inputan(self.result[self.step]))
+
+        posisi = "Posisi akhir" if self.step == len(self.result)-1 else f"Step {self.step}"
+        print(f"\nNext - {posisi}")
+        print(f"{self.result[self.step]}\n")
 
         self.set_counter()
         if self.step == len(self.result)-1:
