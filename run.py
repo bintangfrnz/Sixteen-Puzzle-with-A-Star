@@ -152,8 +152,10 @@ class MainWindow(QDialog):
             
             print("\nPosisi awal")
             print(f"{self.result[0]}\n")
+            print("- The puzzle is solvable -\n")
 
         else:
+            print("\n- The puzzle is unsolvable -\n")
             self.not_solvable.setStyleSheet(WARNING_TEXT_COLOR)
 
     def resetApp(self):
