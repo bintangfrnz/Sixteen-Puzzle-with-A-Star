@@ -34,7 +34,9 @@ is a sliding puzzle that consist 15 square tiles numbered 1–15 and one missing
 in a frame with 4 tiles high and 4 tiles wide. Tiles in the same row or column of the open position can be moved by sliding them horizontally or vertically, respectively. The goal of the puzzle is to place the tiles in numerical order.
 
 <p align="center">
-  <img src="https://github.com/bintangfrnz/Sixteen-Puzzle-with-A-Star/blob/main/img/end_position.PNG" alt="goal position">
+  <img src="https://github.com/bintangfrnz/Sixteen-Puzzle-with-A-Star/blob/main/img/start_position.PNG" width="300" height="300" alt="start position">
+   ‎ ‎ ‎ ‎ ‎
+  <img src="https://github.com/bintangfrnz/Sixteen-Puzzle-with-A-Star/blob/main/img/end_position.PNG" width="300" height="300" alt="goal position">
 </p>
 
 This **Sixteen Puzzle** program can solve the puzzle from the initial position (user input)
@@ -102,7 +104,7 @@ Module:
   ```sh
   git clone https://github.com/bintangfrnz/Sixteen-Puzzle-with-A-Star.git
   ```
-Alternate: download this repository as zip file and extract them.
+Alternative: download this repository as zip file and extract them.
 
 2. Run
   ```sh
