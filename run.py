@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QDialog, QApplication
 from PyQt5.uic import loadUi
 
 import sys
+import os
 
 from src.a_star import AStar
 from src.puzzle import Puzzle
@@ -80,6 +81,7 @@ class MainWindow(QDialog):
             label.setStyleSheet(DEFAULT_TEXT_COLOR)
 
     def set_default_counter(self):
+        self.step = 0
         self.n_steps.setText("0")
         self.n_expanded_nodes.setText("0")
 
@@ -162,10 +164,11 @@ class MainWindow(QDialog):
         self.set_default_labels_color()
         self.set_default_counter()
         self.set_boxes_value([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0])
-        self.inputan = []
+        self.result = []
         self.start_button.setVisible(False)
         self.prev_button.setVisible(False)
         self.next_button.setVisible(False)
+        os.system('cls' if os.name == 'nt' else 'clear')
 
     def prevPuzzle(self):
         self.next_button.setVisible(True)
